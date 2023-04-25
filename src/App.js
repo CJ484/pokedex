@@ -6,33 +6,44 @@ import axios from 'axios'
 function App() {
   const [data, setData] = useState({pokem:[]});
   const [url, setUrl] = useState('https://pokeapi.co/api/v2/pokemon/?limit=20')
+  const [isBusy, setBusy] = useState(true);
 
   useEffect(() => {
-
     const fetchData = async () => {
       const result = await axios(url);
-  
+      setBusy(false)
       setData(result.data);
     }
     fetchData();
     
-  }, []);
+  }, [url]);
   
-    console.log(data);
-  // const card = data.results.map((object) => {
-  //   return (
-  //     <div key={object.url}>
-  //       <h3>{object.name}</h3>
-  //     </div>
-  //   )
-  // })
+
 
   return (
     <div>
-      <h1>Pokedex</h1>
-      {/* {card.length > 0 ? card : "Loading..."} */}
+      {isBusy ? (
+        <div>Loading...</div>
+        ) : (
+          <div>
+          {data && data.results.map((object)=> {
+          return (
+              <div className="card" key={object.url}>
+                <img className="card-img-top" src="..." alt="card" />
+                <div className="card-body">
+                  <h3>{object.name}</h3>
+                </div>
+              </div>)
+              }
+            )
+          }
+          </div>
+        )};
 
-      <button>Prev</button>
+      
+     
+
+      <button type="button" onClick={()=> {setUrl(data.previous); }}>Prev</button>
       <button type='button' onClick={() => {setUrl(data.next); }}>Next</button>
 
     </div>
