@@ -13,6 +13,7 @@ function App() {
       const result = await axios(url);
       setBusy(false)
       setData(result.data);
+      console.log(result.data);
     }
     fetchData();
     
@@ -21,14 +22,15 @@ function App() {
 
 
   return (
-    <div>
+    <div className='body' >
+      <h1 className='display-1'>Pokedex</h1>
       {isBusy ? (
         <div>Loading...</div>
         ) : (
-          <div>
+          <div className=' cardGrid d-flex justify-content-md-center flex-row'>
           {data && data.results.map((object)=> {
           return (
-              <div className="card" key={object.url}>
+              <div className="card p-3 m-3 col-md-3" key={object.url}>
                 <img className="card-img-top" src="..." alt="card" />
                 <div className="card-body">
                   <h3>{object.name}</h3>
@@ -42,9 +44,10 @@ function App() {
 
       
      
-
-      <button type="button" onClick={()=> {setUrl(data.previous); }}>Prev</button>
-      <button type='button' onClick={() => {setUrl(data.next); }}>Next</button>
+      <div className='d-flex flex-row'>
+        <button className="btn btn-secondary" type="button" onClick={()=> {setUrl(data.previous); }}>Prev</button>
+        <button className="btn btn-secondary" type='button' onClick={() => {setUrl(data.next); }}>Next</button>
+      </div>
 
     </div>
   );

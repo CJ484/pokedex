@@ -4,6 +4,21 @@ body {
   justify-content: center;
 }
 
+.body {
+  max-width: 1224px;
+}
+
 .display-1 {
   color: rgb(253, 253, 131);
+}
+
+.cardGrid {
+  display: flex;
+  max-width: 75%;
+  flex-wrap: wrap;
+  
+}
+
+.card {
+  background-color: darkgrey;
 }
